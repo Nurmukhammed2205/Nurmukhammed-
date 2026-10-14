@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nurmukhamme Nurmold | Earth Science and Geography</title>
+<meta name="description" content="Personal website of Nurmukhamme Nurmold, an Earth Science and Geography student interested in water, place names, and how people and landscapes shape each other.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛰️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f1f5f4;
+    --ink: #14282b;
+    --muted: #4d6366;
+    --line: #8fb0aa;
+    --line-strong: #4f8a86;
+    --accent: #1f5f7f;
+    --accent-ink: #ffffff;
+    --rule: #cddad7;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1c1f;
+      --ink: #e5eeec;
+      --muted: #9fb5b2;
+      --line: #2f5553;
+      --line-strong: #5aa39c;
+      --accent: #7cc1de;
+      --accent-ink: #0e1c1f;
+      --rule: #25393a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1c1f;
+    --ink: #e5eeec;
+    --muted: #9fb5b2;
+    --line: #2f5553;
+    --line-strong: #5aa39c;
+    --accent: #7cc1de;
+    --accent-ink: #0e1c1f;
+    --rule: #25393a;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.1875rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Hero: contour map ---------- */
+  .hero {
+    position: relative;
+    min-height: min(92vh, 780px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 clamp(1.25rem, 6vw, 5rem) clamp(3rem, 9vh, 6rem);
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .contours {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .contours path { fill: none; stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .contours path.index { stroke: var(--line-strong); stroke-width: 1.8; }
+  .contours .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: trace 2.6s cubic-bezier(.3,.6,.2,1) forwards;
+  }
+  @keyframes trace { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .contours .draw { animation: none; stroke-dashoffset: 0; }
+    html { scroll-behavior: auto; }
+  }
+  .hero-inner { position: relative; max-width: 46rem; }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.25rem;
+  }
+  .hero .lede {
+    font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+    line-height: 1.45;
+    max-width: 34rem;
+    margin: 0 0 2rem;
+  }
+  .btn {
+    display: inline-block;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    padding: 0.8rem 1.4rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+  .btn.quiet {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    margin-left: 0.5rem;
+  }
+
+  /* ---------- Nav ---------- */
+  .topbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem clamp(1.25rem, 6vw, 5rem);
+    font-family: var(--display);
+    z-index: 2;
+  }
+  .topbar .mark { font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+  .topbar nav { display: flex; gap: 1.5rem; align-items: center; }
+  .topbar nav a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 1rem; }
+  .topbar nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .theme-toggle {
+    font: inherit;
+    background: none;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 0.25rem 0.65rem;
+    cursor: pointer;
+    font-family: var(--display);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 620px) {
+    .topbar nav a.hide-sm { display: none; }
+  }
+
+  /* ---------- Sections ---------- */
+  main { padding: 0 clamp(1.25rem, 6vw, 5rem); }
+  section {
+    display: grid;
+    grid-template-columns: minmax(8rem, 13rem) minmax(0, 40rem);
+    gap: 1rem clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(3rem, 8vw, 5.5rem) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section:last-of-type { border-bottom: 0; }
+  section > h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  @media (max-width: 760px) {
+    section { grid-template-columns: 1fr; }
+  }
+  section p { margin: 0 0 1.1rem; }
+  section p:last-child { margin-bottom: 0; }
+
+  .entries { list-style: none; margin: 0; padding: 0; }
+  .entries li { padding: 0 0 1.75rem; margin: 0 0 1.75rem; border-bottom: 1px solid var(--rule); }
+  .entries li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .entries h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .entries .meta { color: var(--muted); font-size: 1rem; margin: 0 0 0.6rem; font-style: italic; }
+  .entries p { margin: 0; }
+
+  .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tags li {
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 0.2rem 0.95rem;
+    font-family: var(--display);
+    font-size: 0.98rem;
+    font-weight: 500;
+  }
+
+  .contact-links { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.5rem; font-family: var(--display); font-size: 1.1rem; }
+  .contact-links span { display: inline-block; min-width: 6.5rem; color: var(--muted); }
+
+  footer {
+    padding: 2rem clamp(1.25rem, 6vw, 5rem) 3rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--rule);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <svg class="contours" id="contours" viewBox="0 0 1200 800" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+
+  <div class="topbar">
+    <a class="mark" href="#top">Nurmukhamme Nurmold</a>
+    <nav aria-label="Main">
+      <a class="hide-sm" href="#about">About</a>
+      <a class="hide-sm" href="#work">Work</a>
+      <a class="hide-sm" href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme" type="button" aria-label="Switch between light and dark theme">Theme</button>
+    </nav>
+  </div>
+
+  <div class="hero-inner">
+    <h1>Nurmukhamme Nurmold</h1>
+    <p class="lede">Earth science and geography student. I study how land, water, and place names shape the way people live.</p>
+    <a class="btn" href="#work">See my work</a>
+    <a class="btn quiet" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <h2>About</h2>
+    <div>
+      <p>I'm a senior majoring in Earth Science and Geography. I like questions where the physical world and human decisions meet: where water goes, who gets it, and what places are called and why.</p>
+      <p>I spent two semesters in Poland on a bilateral exchange program. Studying in a second academic system gave me a new set of landscapes to learn from, and a clearer sense of what I'd like to do next.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+    <ul class="entries">
+      <li>
+        <h3>The Water Scarcity of Kazakhstan: Data and Projections</h3>
+        <p class="meta">Presentation</p>
+        <p>A data-driven look at water stress in Kazakhstan, covering the Aral Sea, transboundary rivers, irrigated agriculture, and groundwater.</p>
+      </li>
+      <li>
+        <h3>Classification of Neotoponyms in Akmola Region</h3>
+        <p class="meta">Mind map and research notes</p>
+        <p>A bilingual (Russian and English) classification of newly created place names, built to show how new names fall into patterns.</p>
+      </li>
+      <li>
+        <h3>New Directions in Teaching Toponymy</h3>
+        <p class="meta">Lecture for geography lessons</p>
+        <p>A lecture on bringing place-name study into school geography classes, with ideas for making it concrete for students.</p>
+      </li>
+      <li>
+        <h3>Forming a Nature-Use Structure</h3>
+        <p class="meta">Lecture</p>
+        <p>How to plan the use of land and resources around the features of the local geosystem, rather than against them.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="entries">
+      <li>
+        <h3>BSc, Earth Science and Geography</h3>
+        <p class="meta">Eurasian National University, senior year</p>
+      </li>
+      <li>
+        <h3>Exchange student, two semesters</h3>
+        <p class="meta">Adam Mickiewicz University, Poland (bilateral exchange program)</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="interests">
+    <h2>Interests</h2>
+    <ul class="tags">
+      <li>Water resources</li>
+      <li>Toponymy</li>
+      <li>Environmental planning</li>
+      <li>Central Asia</li>
+      <li>Peace education</li>
+      <li>Studying abroad</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div>
+      <p>I'm open to study-abroad programs, research collaborations, and conversations about geography and the environment.</p>
+      <ul class="contact-links">
+        <li><span>Email</span><a href="mailto:daurenuly016@gmail.com">daurenuly016@gmail.com</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span id="year"></span> Nurmukhamme Nurmold. Built with plain HTML and CSS.
+</footer>
+
+<script>
+  // Contour map: two hills drawn as nested, slightly irregular closed curves.
+  (function () {
+    var svg = document.getElementById('contours');
+    var NS = 'http://www.w3.org/2000/svg';
+    var hills = [
+      { cx: 880, cy: 330, rings: 24, step: 21, seed: 0.7 },
+      { cx: 1090, cy: 640, rings: 12, step: 19, seed: 2.1 }
+    ];
+    hills.forEach(function (h) {
+      for (var k = 1; k <= h.rings; k++) {
+        var r = k * h.step;
+        var pts = [];
+        var N = 140;
+        for (var i = 0; i <= N; i++) {
+          var t = (i / N) * Math.PI * 2;
+          var wobble = 1
+            + 0.16 * Math.sin(3 * t + h.seed + k * 0.07)
+            + 0.09 * Math.sin(5 * t + h.seed * 2 + k * 0.05)
+            + 0.04 * Math.sin(9 * t + h.seed * 3);
+          var x = h.cx - k * 2.2 + Math.cos(t) * r * wobble * 1.25;
+          var y = h.cy + k * 1.4 + Math.sin(t) * r * wobble * 0.85;
+          pts.push((i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1));
+        }
+        var p = document.createElementNS(NS, 'path');
+        p.setAttribute('d', pts.join(' ') + 'Z');
+        p.setAttribute('pathLength', '1');
+        p.setAttribute('class', (k % 5 === 0 ? 'index ' : '') + 'draw');
+        p.style.animationDelay = (k * 0.06) + 's';
+        svg.appendChild(p);
+      }
+    });
+  })();
+
+  // Theme toggle (remembered per browser)
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('theme');
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) root.setAttribute('data-theme', saved);
+    } catch (e) {}
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+
+  document.getElementById('year').textContent = '\u00A9 ' + new Date().getFullYear();
+</script>
+</body>
+</html>
